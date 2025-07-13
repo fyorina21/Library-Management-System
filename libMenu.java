@@ -1,4 +1,9 @@
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 class libMenu {
     public static void ShowMenu() {
@@ -24,5 +29,20 @@ class libMenu {
         } else {
             System.out.println("Invalid input, please choose from the menu.");
         }
+    }
+
+    public static void savedLogs(String message) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("users.txt",true));
+        writer.write(message);
+        writer.newLine();
+        writer.close();
+    } 
+    public void readLogs() throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("users.txt"));
+        String line;
+        while((line = reader.readLine()) != null) {
+            System.out.println(line);
+        }
+        reader.close();
     }
 }

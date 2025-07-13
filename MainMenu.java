@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class MainMenu{
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -23,5 +24,18 @@ public class MainMenu{
                 System.out.println("Invalid input, please choose from the Main Menu.");
             }
         }
-    }
+
+
+        // try {
+        //     libMenu.savedLogs("Viewer added: ");
+        // } catch (Exception e) {
+        //     System.out.println("Error " + e.getMessage());
+        // } finally {
+        //     System.out.println("Stopped Running");
+        // }
+
+    
+
+
+    }  
 }
