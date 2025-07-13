@@ -52,6 +52,6 @@ public class Auth {
 
         User newUser = new User(username, password, role);
         userDAO.saveUser(newUser);
-        System.out.println("User registered successfully.");
+        System.out.println("User registered successfully. >_<");
     }
 }
