@@ -9,10 +9,10 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         // ✅ Create a librarian
-        Librarian librarian = new Librarian("L001", "librarian1", "Librarian1@gmail.com", "Librarian");
+        Librarian librarian = new Librarian("L001", "librarian1", "Librarian1@gmail.com", "Librarian", "L001");
 
         // ✅ Create a member
-        Member member = new Member("M001", "member1", "member1@gmail.com", "Member");
+        Member member = new Member("M001", "member1", "member1@gmail.com", "Member", "M001");
 
         // ✅ Register the member
         try {

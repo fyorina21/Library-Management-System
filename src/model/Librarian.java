@@ -11,8 +11,8 @@
         private ArrayList<Book> availableBooks = new ArrayList<>();
         private ArrayList<Member> members = new ArrayList<>();
 
-        public Librarian(String userId, String name, String email, String role) {
-            super(userId, name, email, role);
+        public Librarian(String userId, String name, String email, String role,String password) {
+            super(userId, name, email, role, password);
         }
 
         @Override
