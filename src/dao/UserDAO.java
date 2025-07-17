@@ -22,7 +22,7 @@ public class UserDAO {
         File file = new File(FileName);
         if (!file.exists()) return new ArrayList<>();
 
-        try (ObjectInputStream display = new ObjectInputStream(new FileInputStream(FileName)));{  
+        try (ObjectInputStream display = new ObjectInputStream(new FileInputStream(FileName))){
             return (List<User>) display.readObject();
         }catch (IOException | ClassNotFoundException e) {
             return new ArrayList<>();
@@ -35,3 +35,4 @@ public class UserDAO {
         return null;
     }
 }
+

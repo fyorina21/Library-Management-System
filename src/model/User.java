@@ -1,18 +1,16 @@
-package abstracts;
+package model;
 
 public abstract class User {
     protected String userId;
     protected String name;
     protected String email;
     protected String role;
-    protected String password;
 
-    public User (String userId,String name, String email,String role, String password){
+    public User (String userId,String name, String email,String role){
         this.userId = userId;
         this.name = name;
         this.email= email;
         this.role = role;
-        this.password= password;
     }
 
     public String getUserId(){
@@ -38,12 +36,6 @@ public abstract class User {
     }
     public void setRole(String role){
         this.role = role;
-    }
-    public String getPassword(){
-        return password;
-    }
-    public void setPassword(){
-        this.password = password;
     }
 
     public abstract void displayInfo();
