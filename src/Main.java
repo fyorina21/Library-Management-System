@@ -3,19 +3,28 @@ import exception.BookNotFoundException;
 import model.Book;
 import model.Librarian;
 import model.Member;
+import ui.Auth;
+import ui.libMenu;
 
 import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
         // ✅ Create a librarian
-        Librarian librarian = new Librarian("L001", "librarian1", "Librarian1@gmail.com", "Librarian", "L001");
+        // Librarian librarian = new Librarian("L001", "librarian1", "Librarian1@gmail.com", "Librarian", "L001");
 
         // ✅ Create a member
         Member member = new Member("M001", "member1", "member1@gmail.com", "Member", "M001");
 
-        // ✅ Register the member
-        try {
+        Auth auth = new Auth();
+        User currentUser = auth.login();
+        if (currentUser != null) {
+            if (currentUser instanceof Librarian) {
+                libMenu.ShowMenu(currentUser); // ✅ perfect
+            } 
+        }
+                // ✅ Register the member
+                try {
             librarian.registerMember(member);
             System.out.println("Member successfully  registered.");
         } catch (UserNotFoundException e) {
@@ -23,7 +32,7 @@ public class Main {
         }
 
         // ✅ Create a book
-        Book book = new Book("B001", "Book1", "author1", true, "OOP", 2005);
+        // Book book = new Book("B001", "Book1", "author1", true, "OOP", 2005);
 
         // ✅ Add the book
         try {

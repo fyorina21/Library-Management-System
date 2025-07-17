@@ -25,7 +25,7 @@ public class UserDAO {
         }
     }
 
-    public List<User> loadAllusers(){
+    public List<User> loadAllUsers(){
         File file = new File(FileName);
         if (!file.exists()) return new ArrayList<>();
 

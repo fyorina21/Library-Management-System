@@ -11,8 +11,8 @@ public class Member extends User {
     private int maxBooks;
     ArrayList<Book> borrowedBooks = new ArrayList<>();
 
-    public Member(String userId, String name, String email, String role,String password) {
-        super(userId, name, email, role, password);
+    public Member(String userId, String name, String email, String role,String password, String username) {
+        super(userId, name, email, role, password, username);
     }
     public ArrayList<Member> members = new ArrayList<>();
 
