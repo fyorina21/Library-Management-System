@@ -22,7 +22,7 @@ public class MainMenu{
                 Member user = Auth.login();
                 if (user != null) {
                     if (user.getRole().equals("librarian")) {
-                        new libMenu().display();
+                        libMenu.ShowMenu();
                     }
                 }
 
