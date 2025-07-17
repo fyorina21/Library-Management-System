@@ -30,7 +30,7 @@ public class MainMenu{
                 Auth.register();
             }else if (option == 3) {
                 System.out.println("Exiting...");
-    //                return ;
+                return ;
             } else {
                 System.out.println("Invalid input, please choose from the Main Menu.");
             }
