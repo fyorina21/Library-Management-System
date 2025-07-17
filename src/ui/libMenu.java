@@ -1,7 +1,12 @@
+package ui;
+
 import java.util.Scanner;
+import model.Member;
+import model.Auth;
 
 class libMenu {
     public static void ShowMenu() {
+        Member currentUser = new Member(username);
         System.out.println("Librarian Menu");
         System.out.println("1. Add Book");
         System.out.println("2. Remove Book");
@@ -13,6 +18,9 @@ class libMenu {
         int choice = scanner.nextInt();
 
         if (choice == 1) {
+            System.out.print("Enter book title: ");
+            String bookTitle = scanner.nextLine();
+            currentUser.addBook(bookTitle);
             System.out.println("Book added successfully.");
         }else if(choice == 2) {
             System.out.println("Book removed successfully");
