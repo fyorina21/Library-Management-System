@@ -4,6 +4,7 @@ import model.User;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class UserDAO {
     private static final String FileName = "users.dat";
 
