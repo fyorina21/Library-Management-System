@@ -2,7 +2,9 @@ package ui;
 
 import java.util.Scanner;
 import dao.UserDAO;
-import model.User;
+import abstracts.User;
+import model.Librarian;
+import model.Member;
 
 public class Auth {
     private Scanner scanner = new Scanner(System.in);
@@ -20,16 +22,22 @@ public class Auth {
 
         User user = userDAO.findUserByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-            System.out.prinln("Login successful! Welcome " + user.getUsername()+ "(" + user.getRole() + ")");
+            System.out.println("Login successful! Welcome " + user.getUsername()+ "(" + user.getRole() + ")");
+            return user;
         } else {
             System.out.println("Invalid username or password.");
             return null;
-        }
-        
+        }      
     }
 
-    public static void register() {
+    public void register() {
         System.out.println("\n=== Register ===");
+
+        System.out.print("Enter full name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
 
         System.out.print("Choose a username: ");
         String username = scanner.nextLine();
@@ -50,7 +58,12 @@ public class Auth {
             return;
         }
 
-        User newUser = new User(username, password, role);
+        User newUser;
+        if (role.equals("librarian")) {
+            newUser = new Librarian(name, username, email, password);
+        } else {
+            newUser = new Member(name, username, email, password);
+        }
         userDAO.saveUser(newUser);
         System.out.println("User registered successfully. >_<");
     }

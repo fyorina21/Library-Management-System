@@ -35,7 +35,7 @@ public class UserDAO {
             return new ArrayList<>();
         }
     }
-    public User findUserbyUsername(String username){
+    public User findUserByUsername(String username){
         for (User user : loadAllUsers()) {
             if (user.getUsername().equals(username)) return user;
         }

@@ -8,13 +8,17 @@ public abstract class User {
     protected String role;
     protected String password;
 
-    public User (String userId,String name, String email,String role, String password, String username){
-        this.userId = userId;
+    public User (String name, String username,String email, String role, String password){
+        this.userId = generateUserId();
         this.name = name;
         this.username = username;
         this.email= email;
         this.role = role;
         this.password= password;
+    }
+
+    public String generateUserId() {
+        return java.util.UUID.randomUUID().toString();
     }
 
     public String getUserId(){
@@ -36,7 +40,7 @@ public abstract class User {
         this.username = username;
     }
     public String getEmail(){
-        return name;
+        return email;
     }
     public void setEmail(String email){
         this.email = email;
@@ -50,7 +54,7 @@ public abstract class User {
     public String getPassword(){
         return password;
     }
-    public void setPassword(){
+    public void setPassword(String password){
         this.password = password;
     }
 

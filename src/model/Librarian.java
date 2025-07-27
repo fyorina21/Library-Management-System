@@ -11,8 +11,8 @@ public class Librarian extends User {
     private ArrayList<Book> availableBooks = new ArrayList<>();
     private ArrayList<Member> members = new ArrayList<>();
 
-    public Librarian(String userId, String name, String email, String role,String password, String username) {
-        super(userId, name, username, email, role, password);
+    public Librarian(String name, String username, String email, String password) {
+        super(name, username, email, "librarian", password);
     }
 
     @Override
@@ -56,4 +56,9 @@ public class Librarian extends User {
             System.out.println("- " + b.getTitle());
         }
     }
+
+    public ArrayList<Book> getAllBooks() {
+        return availableBooks;
+    }
+
 }

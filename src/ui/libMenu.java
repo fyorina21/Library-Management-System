@@ -3,24 +3,19 @@ package ui;
 import java.util.Scanner;
 import model.Librarian;
 import model.Book;
-import model.User;
+import abstracts.User;
 
 
 public class libMenu {
-    public static void ShowMenu(User user) {
-        if (!(user instanceof Librarian)) {
-            System.out.println("Access denied.");
-            return;
-        }
-
-        Librarian librarian = (Librarian) user;
+    public static void ShowMenu(Librarian librarian) {
         Scanner scanner = new Scanner(System.in);
 
         while(true) {
             System.out.println("Librarian Menu");
             System.out.println("1. Add Book");
             System.out.println("2. View Users");
-            System.out.println("3. Back to Main Menu");
+            System.out.println("3. View All Books");
+            System.out.println("4. Back to Main Menu");
             
             
             System.out.print("What would you like to do? ");
@@ -49,8 +44,12 @@ public class libMenu {
                     System.out.println("Failed to add book: " + e.getMessage());
                 }
             } else if(choice == 2) {
+                System.out.println("Registered members:");
+                for (Member m : librarian.getMembers()) {
+                System.out.println("- " + m.getName() + " (" + m.getUsername() + ")");
+            } else if (choice == 3) {
                 librarian.viewAllBooks();
-            } else if(choice == 3) {
+            }else if (choice == 4) {
                 System.out.println("Returning to Library Menu...");
                 return;
             } else {

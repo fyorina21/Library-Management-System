@@ -1,8 +1,11 @@
 package ui;
 
 
+import model.Librarian;
 import model.Member;
 import ui.libMenu;
+import ui.memberMenu;
+import ui.Auth;
 import java.util.Scanner;
 
 
@@ -19,11 +22,18 @@ public class MainMenu{
 
 
             if (option == 1) {
-                Member user = Auth.login();
+                User user = Auth.login(); 
+
                 if (user != null) {
-                    if (user.getRole().equals("librarian")) {
-                        libMenu.ShowMenu();
+                    if (user instanceof Librarian) {
+                        libMenu.ShowMenu((Librarian) user); 
+                    } else if (user instanceof Member) {
+                        memberMenu.ShowMenu((Member) user); 
+                    } else {
+                        System.out.println("Unrecognized user type.");
                     }
+                } else {
+                    System.out.println("Login failed.");
                 }
 
             }else if (option == 2) {
