@@ -1,6 +1,6 @@
 package dao;
 
-import model.User;
+import abstracts.User;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,7 +30,9 @@ public class UserDAO {
         if (!file.exists()) return new ArrayList<>();
 
         try (ObjectInputStream display = new ObjectInputStream(new FileInputStream(FileName))){
-            return (List<User>) display.readObject();
+            List<User> loaded = (List<User>) display.readObject();
+            System.out.println("Loaded " + loaded.size() + "users from file.");
+            return loaded;
         }catch (IOException | ClassNotFoundException e) {
             return new ArrayList<>();
         }

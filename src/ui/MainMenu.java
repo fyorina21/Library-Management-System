@@ -5,13 +5,17 @@ import model.Librarian;
 import model.Member;
 import ui.libMenu;
 import ui.memberMenu;
+import abstracts.User;
 import ui.Auth;
 import java.util.Scanner;
 
 
 public class MainMenu{
     Scanner scanner = new Scanner(System.in);
-    public void showMenu(){
+    Auth auth = new Auth();
+
+
+    public void ShowMenu(){
          while(true) {
             System.out.println("======== Main Menu ========");
             System.out.println("1. Login");
@@ -22,22 +26,23 @@ public class MainMenu{
 
 
             if (option == 1) {
-                User user = Auth.login(); 
+                User user = auth.login(); 
 
-                if (user != null) {
-                    if (user instanceof Librarian) {
-                        libMenu.ShowMenu((Librarian) user); 
-                    } else if (user instanceof Member) {
-                        memberMenu.ShowMenu((Member) user); 
-                    } else {
-                        System.out.println("Unrecognized user type.");
-                    }
+                if (user == null) {
+                    System.out.println("Login failed. Goodbye.");
+                    return;
+                }
+
+                if (user instanceof Librarian) {
+                    libMenu.ShowMenu((Librarian) user);
+                } else if (user instanceof Member) {
+                    memberMenu.ShowMenu((Member) user);
                 } else {
-                    System.out.println("Login failed.");
+                    System.out.println("Unknown user role. Access denied.");
                 }
 
             }else if (option == 2) {
-                Auth.register();
+                auth.register();
             }else if (option == 3) {
                 System.out.println("Exiting...");
                 return ;

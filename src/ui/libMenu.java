@@ -3,6 +3,7 @@ package ui;
 import java.util.Scanner;
 import model.Librarian;
 import model.Book;
+import model.Member;
 import abstracts.User;
 
 
@@ -47,6 +48,7 @@ public class libMenu {
                 System.out.println("Registered members:");
                 for (Member m : librarian.getMembers()) {
                 System.out.println("- " + m.getName() + " (" + m.getUsername() + ")");
+                }
             } else if (choice == 3) {
                 librarian.viewAllBooks();
             }else if (choice == 4) {

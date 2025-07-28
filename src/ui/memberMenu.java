@@ -1,9 +1,12 @@
+package ui;
+
+
 import java.util.Scanner;
 import java.util.List;
 import model.Member;
 
 public class memberMenu {
-    public static void showMenu(Member member) {
+    public static void ShowMenu(Member member) {
         Scanner scanner = new Scanner(System.in);
 
         while(true) {

@@ -5,7 +5,9 @@ import model.Librarian;
 import model.Member;
 import ui.Auth;
 import abstracts.User;
+import ui.MainMenu;
 import ui.libMenu;
+import ui.memberMenu;
 
 // import java.util.ArrayList;
 
@@ -17,22 +19,10 @@ public class Main {
         // ✅ Create a member
      //   Member member = new Member("M001", "member1", "member1@gmail.com", "Member", "M001");
 
-        Auth auth = new Auth();
-        auth.register();
-        User user = auth.login();
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.ShowMenu();
  
-    if (user == null) {
-            System.out.println("Login failed. Goodbye.");
-            return;
-        }
 
-        if (user instanceof Librarian) {
-            libMenu.ShowMenu((Librarian) user);
-        } else if (user instanceof Member) {
-            memberMenu.ShowMenu(user);
-        } else {
-            System.out.println("Unknown user role. Access denied.");
-        }
 
         //         // ✅ Register the member
         // try {
