@@ -1,7 +1,11 @@
 package dao;
 
-import...
+import java.io.BufferedInputStream;
 
+import model.Book;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 public class BookDAO {
     private static final String FILE_PATH = "book.dat";
 
@@ -16,20 +20,50 @@ public class BookDAO {
 
         public List<Book> loadAllBooks() {
         File file = new File(FILE_PATH);
-        if (!file.exists()) return new ArrayList<>;
+    public List<Book> loadAllBooks() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) return new ArrayList<>();
+        try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(FILE_PATH)))) {
+            return (List<Book>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error : " + e.getMessage());
+            return new ArrayList<>();
+package dao;
 
-        try (ObjectInputStream in = new ObjectInputStream(
-                new BufferedInputStream(new FileInputStream(FILE_PATH)))){
-        return (List<Book>) in.readObject();
-    }catch (IOException  | ClassNotFoundException e){
-                System.out.println("Error : " + e.getMessage());
-                return new ArrayList<>();
+import java.io.BufferedInputStream;
+import model.Book;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BookDAO {
+    private static final String FILE_PATH = "book.dat";
+
+    public void saveBook(Book book) {
+        List<Book> books = loadAllBooks();
+        books.add(book);
+        try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(FILE_PATH)))) {
+            out.writeObject(books);
+        } catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
-public Book findBookByTitle(String Title){
-    for (Book book: loadAllBooks()){
-        if (book.getTitle().equalsIgnoreCase(title))return book;
+
+    public List<Book> loadAllBooks() {
+        File file = new File(FILE_PATH);
+        if (!file.exists()) return new ArrayList<>();
+        try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(FILE_PATH)))) {
+            return (List<Book>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error : " + e.getMessage());
+            return new ArrayList<>();
+        }
     }
-    return null;
+
+    public Book findBookByTitle(String title) {
+        for (Book book : loadAllBooks()) {
+            if (book.getTitle().equalsIgnoreCase(title)) return book;
+        }
+        return null;
     }
 }
