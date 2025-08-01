@@ -24,7 +24,8 @@ public class CreateTables {
                 author TEXT,
                 category TEXT,
                 year_published INTEGER,
-                is_available BOOLEAN DEFAULT 1
+                is_available BOOLEAN DEFAULT 1,
+                ALTER TABLE books ADD COLUMN pdf_path TEXT;
             );
         """;
 

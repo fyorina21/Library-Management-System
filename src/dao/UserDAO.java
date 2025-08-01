@@ -118,7 +118,7 @@ public class UserDAO {
     public void viewAllMembers() {
         String sql = "SELECT * FROM users WHERE role = 'member'";
 
-        try (Connection conn = connect();
+        try (Connection conn = DBUtil.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 

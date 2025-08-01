@@ -5,9 +5,7 @@ import model.Librarian;
 import model.Book;
 import dao.BookDAO;
 import dao.UserDAO;
-import model.Member;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class libMenu {
@@ -34,7 +32,7 @@ public class libMenu {
                 case 2 -> viewBooks();
                 case 3 -> updateBook();
                 case 4 -> removeBook();
-                case 5 -> userDAO.viewAllMembers();();
+                case 5 -> userDAO.viewAllMembers();
                 case 6 -> {
                     System.out.println("Logging out...");
                     return;
@@ -58,7 +56,10 @@ public class libMenu {
         System.out.print("Year Published: ");
         int year = Integer.parseInt(scanner.nextLine());
 
-        Book book = new Book(title, author, category, year, true);
+        System.out.print("PDF Path or URL (leave empty if not applicable): ");
+        String pdfPath = scanner.nextLine();
+
+        Book book = new Book(title, author, category, year, true, pdfPath);
         bookDAO.saveBook(book);
         System.out.println("Book added.");
     }
@@ -72,7 +73,7 @@ public class libMenu {
             for (Book b : books) {
                 System.out.printf("- [%d] %s by %s (%d) [%s]%n",
                         b.getId(), b.getTitle(), b.getAuthor(), b.getYearPublished(), b.getCategory(),
-                        b.isAvailable() ? "Available" : "Borrowed");
+                        b.isAvailable() ? "Available" : "Borrowed", b.getPdfPath());
             }
         }
     }
@@ -104,6 +105,10 @@ public class libMenu {
         int year = Integer.parseInt(scanner.nextLine());
         if (year > 0) existing.setYearPublished(year);
 
+        System.out.print("New URL (leave blank to keep: " + existing.getPdfPath() + "): ");
+        String path = scanner.nextLine();
+        existing.setPdfPath(path);
+
         bookDAO.updateBook(existing);
         System.out.println("Book updated.");
     }
@@ -116,30 +121,4 @@ public class libMenu {
         bookDAO.deleteBook(id);
         System.out.println("Book removed.");
     } 
-    
-    private void viewUsers() {
-        UserDAO userDAO = new UserDAO();
-        var allUsers = userDAO.loadAllUsers();
-
-        List<Member> members = new ArrayList<>();
-        for (var user : allUsers) {
-            if (user instanceof Member member) {
-                members.add(member);
-            }
-        }
-
-        if (members.isEmpty()) {
-            System.out.println("No members found.");
-        } else {
-            System.out.println("\n=== Registered Members ===");
-            for (Member m : members) {
-                System.out.printf("- [%d] %s (%s) | Email: %s%n",
-                        m.getId(),
-                        m.getName(),
-                        m.getUsername(),
-                        m.getEmail()
-                );
-            }
-        }
-    }
 }

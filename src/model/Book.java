@@ -7,13 +7,15 @@ public class Book  {
     private String category;
     private int yearPublished;
     private boolean isAvailable;
+    private String pdfPath;
 
-    public Book(String title, String author, String category, int yearPublished,boolean isAvailable){
+    public Book(String title, String author, String category, int yearPublished,boolean isAvailable, String pdfPath){
         this.title = title;
         this.author = author;
         this.category = category;
         this.yearPublished = yearPublished;
         this.isAvailable = isAvailable;
+        this.pdfPath = pdfPath;
     }
 
     public Book() {}
@@ -56,8 +58,17 @@ public class Book  {
         this.yearPublished = yearPublished;
     }
 
-     @Override
+    public String getPdfPath() {
+    return pdfPath;
+    }
+
+    public void setPdfPath(String pdfPath) {
+        this.pdfPath = pdfPath;
+    }
+
+
+    @Override
     public String toString() {
-        return "[" + id + "] " + title + " by " + author + " (" + yearPublished + ") - " + (isAvailable ? "Available" : "Borrowed");
+        return "[" + id + "] " + title + " by " + author + " (" + yearPublished + ") - " + (isAvailable ? "Available" : "Borrowed") + "\nPath: " + pdfPath ;
     }
 }

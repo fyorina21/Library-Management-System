@@ -25,10 +25,11 @@ public class MainMenu{
                 case 1 -> {
                     User user = auth.login();
                     if (user != null) {
-                        if (user instanceof Librarian librarian) {
-                            new libMenu().ShowMenu(librarian);
-                        } else if (user instanceof Member member) {
-                            new memberMenu().ShowMenu(member);
+                        switch (user) {
+                            case Librarian librarian -> new libMenu().ShowMenu(librarian);
+                            case Member member -> new memberMenu().ShowMenu(member);
+                            default -> {
+                            }
                         }
                     } else {
                         System.out.println("Login Failed T^T. GoodBye.");

@@ -50,7 +50,6 @@ public class Member extends User {
     @Override
     public void displayInfo() {
         System.out.println("User info: " + super.toString());
-        System.out.println(getBorrowedBookCount());
     }
 
     @Override
@@ -61,7 +60,7 @@ public class Member extends User {
 
     public void getBorrowedBookCount() {
         BorrowDAO borrowDAO = new BorrowDAO();
-        int count = borrowDAO.getBorrowedBooksByUserId(this.getId()).size();
+        int count = borrowDAO.getBorrowedBooks(this.getId()).size();
         System.out.println("Number of borrowed books: " + count);
     }
 }

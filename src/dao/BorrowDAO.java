@@ -41,7 +41,7 @@ public class BorrowDAO {
     public List<Book> getBorrowedBooks(int userId) {
         List<Book> borrowedBooks = new ArrayList<>();
         String sql = """
-            SELECT b.id, b.title, b.category, b.year_published, b.is_available
+            SELECT b.id, b.title, b.category, b.year_published, b.is_available, b.pdf_path
             FROM books b
             JOIN borrowed_books bb ON b.id = bb.book_id
             WHERE bb.user_id = ?
@@ -61,6 +61,7 @@ public class BorrowDAO {
                 book.setCategory(rs.getString("category"));
                 book.setYearPublished(rs.getInt("year_published"));
                 book.setIsAvailable(rs.getBoolean("is_available"));
+                book.setPdfPath(rs.getString("pdf_path"));
                 borrowedBooks.add(book);
             }
 
