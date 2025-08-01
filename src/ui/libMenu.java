@@ -4,8 +4,6 @@ import java.util.Scanner;
 import model.Librarian;
 import model.Book;
 import model.Member;
-import abstracts.User;
-
 
 public class libMenu {
     public static void ShowMenu(Librarian librarian) {
