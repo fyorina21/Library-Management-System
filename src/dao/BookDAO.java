@@ -54,10 +54,10 @@ public class BookDAO {
         if (!file.exists()) return new ArrayList<>();
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_PATH))){
-        return (List<Book>) in.readObject();
+            return (List<Book>) in.readObject();
         }catch (IOException  | ClassNotFoundException e){
-                System.out.println("Error : " + e.getMessage());
-                return new ArrayList<>();
+            System.out.println("Error : " + e.getMessage());
+            return new ArrayList<>();
         }
     }
 
