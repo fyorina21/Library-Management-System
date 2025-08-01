@@ -1,9 +1,8 @@
 package abstracts;
 
-import java.io.Serializable;
 
-public abstract class User implements Serializable {
-    protected String userId;
+public abstract class User {
+    protected int id;
     protected String name;
     protected String username;
     protected String email;
@@ -11,7 +10,6 @@ public abstract class User implements Serializable {
     protected String password;
 
     public User (String name, String username,String email, String role, String password){
-        this.userId = generateUserId();
         this.name = name;
         this.username = username;
         this.email= email;
@@ -19,15 +17,13 @@ public abstract class User implements Serializable {
         this.password= password;
     }
 
-    public String generateUserId() {
-        return java.util.UUID.randomUUID().toString();
-    }
+    public User() {}
 
-    public String getUserId(){
-        return userId;
+    public int getId(){
+        return id;
     }
-    public void setUserId(String userId){
-        this.userId= userId;
+    public void setId(int id){
+        this.id = id;
     }
     public String getName(){
         return name;
@@ -65,14 +61,12 @@ public abstract class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "User ID: '" + userId + '\'' +
+                "User ID: '" + id + '\'' +
                 ", Name: '" + name + '\'' +
                 ", Email: '" + email + '\'' +
                 ", Role: '" + role + '\'' +
                 '}';
     }
-
-
 }
 
 
