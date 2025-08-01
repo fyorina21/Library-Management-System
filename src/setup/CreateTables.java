@@ -12,8 +12,8 @@ public class CreateTables {
                 name TEXT,
                 username TEXT UNIQUE,
                 email TEXT,
-                password TEXT,
-                role TEXT
+                role TEXT,
+                password TEXT
             );
         """;
 

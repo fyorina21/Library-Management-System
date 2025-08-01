@@ -1,25 +1,27 @@
 package model;
 // all fields should be private with getters and setters
 public class Book  {
-    private String id;
+    private int id;
     private String title;
     private String author;
+    private String category;
+    private int yearPublished;
     private boolean isAvailable;
-    private String genre;
-    private int publishedYear;
 
-    public Book(String id,String title, String author,boolean isAvailable, String genre, int publishedYear){
-        this.id = id;
+    public Book(String title, String author, String category, int yearPublished,boolean isAvailable){
         this.title = title;
-        this.author =author;
-        this.genre =genre;
-        this.publishedYear = publishedYear;
+        this.author = author;
+        this.category = category;
+        this.yearPublished = yearPublished;
+        this.isAvailable = isAvailable;
     }
 
-    public String getId(){
+    public Book() {}
+
+    public int getId(){
         return id;
     }
-    public void setId(String id){
+    public void setId(int id){
         this.id = id;
 
     }
@@ -41,17 +43,21 @@ public class Book  {
     public void setIsAvailable(boolean isAvailable){
         this.isAvailable = true;
     }
-    public String getGenre(){
-        return genre;
+    public String getCategory(){
+        return category;
     }
-    public void setGenre(String genre){
-        this.genre = genre;
+    public void setCategory(String category){
+        this.category = category;
     }
-    public int getPublishedYear(){
-        return publishedYear;
+    public int getYearPublished(){
+        return yearPublished;
     }
-    public void setPublishedYear(int publishedYear){
-        this.publishedYear = publishedYear;
+    public void setYearPublished(int yearPublished){
+        this.yearPublished = yearPublished;
     }
 
+     @Override
+    public String toString() {
+        return "[" + id + "] " + title + " by " + author + " (" + yearPublished + ") - " + (isAvailable ? "Available" : "Borrowed");
+    }
 }

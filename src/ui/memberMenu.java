@@ -6,13 +6,15 @@ import java.util.List;
 import model.Member;
 import model.Book;
 import dao.BookDAO;
+import dao.BorrowDAO;
 
 public class memberMenu {
     private final Scanner scanner = new Scanner(System.in);
     private final BookDAO bookDAO = new BookDAO();
+    private final BorrowDAO borrowDAO = new BorrowDAO();
 
 
-    public static void ShowMenu(Member member) {
+    public void ShowMenu(Member member) {
         while(true) {
             System.out.println("\n=== Member Menu ===");
             System.out.println("1. View Available Books");
@@ -29,14 +31,14 @@ public class memberMenu {
                 case 1 -> viewAvailableBooks();
                 case 2 -> borrowBook(member);
                 case 3 -> returnBook(member);
-                case 4 -> viewBorrowedBooks();
-                case 5 -> {
+                case 4 -> {
                     System.out.println("Logging out...");
                     return;
                 }
 
-                default:
+                default -> {
                     System.out.println("Invalid choice. Try again.");
+                }
             }
         }
     }
@@ -51,39 +53,49 @@ public class memberMenu {
         System.out.println("\nAvailable Books: ");
         for (Book book : availableBooks) {
             System.out.printf("- [%d] %s by %s (%d) [%s]%n",
-            book.getId(), book.getTitke(), book.getAuthor(),
-            book.getYearPublished(), book.getGenre());
+            book.getId(), book.getTitle(), book.getAuthor(),
+            book.getYearPublished(), book.getCategory());
         }
     }
 
-    private void borrowBook(Memeber member) {
+    private void borrowBook(Member member) {
         viewAvailableBooks();
         System.out.print("Enter the ID of the book to borrow: ");
         int bookId = Integer.parseInt(scanner.nextLine());
 
-        Book book = bookDAO.findBookByTitleById(bookId);
-        if (book == null || !book.isAvailable()) {
+        Book book = bookDAO.findBookById(bookId);
+        boolean borrow = member.borrowBook(bookId);
+        if (!borrow) {
             System.out.println("Book not available or invalid ID.");
             return;
         }
-
-        bookDAO.updateAvailability(bookId, false);
-
 
         System.out.println("You have borrowed \"" + book.getTitle() + "\".");
     }
 
     private void returnBook(Member member) {
+        List<Book> borrowed = borrowDAO.getBorrowedBooks(member.getId());
+        if (borrowed.isEmpty()) {
+            System.out.println("You have no borrowed books.");
+            return;
+        }
+
+        System.out.println("\n=== Your Borrowed Books ===");
+        for (Book book : borrowed) {
+            System.out.printf("- [%d] %s by %s%n", book.getId(), book.getTitle(), book.getAuthor());
+        }
+
         System.out.print("Enter the ID of the book to return: ");
         int bookId = Integer.parseInt(scanner.nextLine());
+        Book book = bookDAO.findBookById(bookId);
 
-        Book book = bookDAO.findBookByTitleById(bookId);
         if (book == null) {
             System.out.println("Invalid book ID.");
             return;
         }
 
-        bookDAO.updateAvailability(bookId, true);
+        borrowDAO.returnBook(member.getId(), bookId);
+        bookDAO.updateBook(book);
 
         
         System.out.println("You have returned \"" + book.getTitle() + "\".");
