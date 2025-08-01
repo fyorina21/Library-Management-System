@@ -26,17 +26,16 @@ public class BookDAO {
     
     public List<Book> loadAllBooks() {
         File file = new File(FILE_PATH);
-        if (!file.exists()) return new ArrayList<>;
+        if (!file.exists()) return new ArrayList<>();
 
-        try (ObjectInputStream in = new ObjectInputStream(
-                new (new FileInputStream(FILE_PATH)))){
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_PATH))){
         return (List<Book>) in.readObject();
         }catch (IOException  | ClassNotFoundException e){
                 System.out.println("Error : " + e.getMessage());
                 return new ArrayList<>();
         }
     }
-    public Book findBookByTitle(String Title){
+    public Book findBookByTitle(String title){
     for (Book book: loadAllBooks()){
         if (book.getTitle().equalsIgnoreCase(title))return book;
     }
