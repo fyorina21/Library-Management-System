@@ -75,7 +75,7 @@ public class memberMenu {
                 default:
                     System.out.println("Invalid choice. Try again.");
             }
-        }
+        
         }
     }
 }
