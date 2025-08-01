@@ -44,7 +44,7 @@ public class libMenu {
                 } catch (Exception e) {
                     System.out.println("Failed to add book: " + e.getMessage());
                 }
-            } else if(choice == 2) {
+            } else if (choice == 2) {
                 System.out.println("Registered members:");
                 for (Member m : librarian.getMembers()) {
                 System.out.println("- " + m.getName() + " (" + m.getUsername() + ")");

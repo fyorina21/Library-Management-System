@@ -8,11 +8,10 @@ public class Book  {
     private String genre;
     private int publishedYear;
 
-    public Book(String id,String title, String author, boolean isAvailable, String genre, int publishedYear){
+    public Book(String id,String title, String author,boolean isAvailable, String genre, int publishedYear){
         this.id = id;
         this.title = title;
         this.author =author;
-        this.isAvailable = true;
         this.genre =genre;
         this.publishedYear = publishedYear;
     }
@@ -39,8 +38,8 @@ public class Book  {
    public boolean isAvailable(){
         return isAvailable;
    }
-    public void setIsAvailable(boolean IsAvailable){
-
+    public void setIsAvailable(boolean isAvailable){
+        this.isAvailable = true;
     }
     public String getGenre(){
         return genre;
