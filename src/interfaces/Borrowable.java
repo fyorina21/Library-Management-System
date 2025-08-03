@@ -1,4 +1,5 @@
 package interfaces;
 
-public interface Borrowable {
+public class Borrowable {
+    
 }
