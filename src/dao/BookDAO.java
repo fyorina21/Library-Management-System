@@ -19,7 +19,7 @@ public class BookDAO {
     }
 
     public void saveBook(Book book) {
-<<<<<<< HEAD
+
         List<Book> books = loadAllBooks();
         books.add(book);
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE_PATH))){
@@ -34,7 +34,7 @@ public class BookDAO {
     public List<Book> loadAllBooks() {
         }catch (IOException e) {
             System.out.println ("Error: " + e.getMessage());
-=======
+
         String sql = "INSERT INTO books (title, author, category, year_published, is_available, pdf_path) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -47,7 +47,6 @@ public class BookDAO {
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error saving book: " + e.getMessage());
->>>>>>> ae54204f556b1197f91fbfe593f175953f4b765a
         }
     }
 
@@ -124,26 +123,8 @@ public class BookDAO {
         return book;
     }
     
-<<<<<<< HEAD
-    public List<Book> loadAllBooks() {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) return new ArrayList<>();
-        try (ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(FILE_PATH)))) {
-            Object obj = in.readObject();
-            if (obj instanceof List<?>) {
-                return (List<Book>) obj;
-            } else {
-                System.out.println("Error : Data in file is not a List");
-                return new ArrayList<>();
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error : " + e.getMessage());
-            return new ArrayList<>();
-        if (!file.exists()) return new ArrayList<>();
-=======
     public Book findBookById(int id) {
         String sql = "SELECT * FROM books WHERE id = ?";
->>>>>>> ae54204f556b1197f91fbfe593f175953f4b765a
 
         try (Connection conn = DBUtil.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -165,22 +146,7 @@ public class BookDAO {
         } catch (SQLException e) {
             System.out.println("Error finding book by ID: " + e.getMessage());
         }
-<<<<<<< HEAD
-    }
-
-    public Book findBookByTitle(String title) {
-        for (Book book : loadAllBooks()) {
-            if (book.getTitle().equalsIgnoreCase(title)) return book;
-        }
-        return null;
-    public Book findBookByTitle(String title){
-    for (Book book: loadAllBooks()){
-        if (book.getTitle().equalsIgnoreCase(title))return book;
-    }
-    return null;
-=======
 
         return null;
->>>>>>> ae54204f556b1197f91fbfe593f175953f4b765a
     }
 }
