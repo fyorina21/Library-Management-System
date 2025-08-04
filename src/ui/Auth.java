@@ -68,7 +68,7 @@ public class Auth {
             return;
         }
 
-        try {
+    
             if (role.equals("librarian")) {
                 Librarian newUser = new Librarian(name, username, email, password);
                 libraryService.registerLibrarian(newUser);
@@ -77,10 +77,5 @@ public class Auth {
                 libraryService.registerMember(newUser);
             }
             System.out.println("User registered successfully! >_<");
-        } catch (LibraryException e) {
-            System.out.println("Registration failed: " + e.getMessage());
-        }
-    }
-}
-
+ 
 
