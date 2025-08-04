@@ -1,4 +1,5 @@
 package interfaces;
 
-public interface Returnable {
+public class Returnable {
+    
 }

@@ -7,8 +7,8 @@ import model.Librarian;
 import model.Member;
 
 public class Auth {
-    private Scanner scanner = new Scanner(System.in);
-    private UserDAO userDAO = new UserDAO();
+    private final Scanner scanner = new Scanner(System.in);
+    private final UserDAO userDAO = new UserDAO();
 
     public User login() {
         System.out.println("\n=== Login ===");
@@ -65,7 +65,7 @@ public class Auth {
             newUser = new Member(name, username, email, password);
         }
         userDAO.saveUser(newUser);
-        System.out.println("User registered successfully. >_<");
+        System.out.println("User registered successfully! >_<");
     }
 }
 
