@@ -1,14 +1,20 @@
 package ui;
 
 import java.util.Scanner;
+
+import dao.BookDAO;
+import dao.BorrowDAO;
 import dao.UserDAO;
 import abstracts.User;
 import model.Librarian;
 import model.Member;
+import exception.LibraryException;
+import services.LibraryService;
 
 public class Auth {
     private final Scanner scanner = new Scanner(System.in);
     private final UserDAO userDAO = new UserDAO();
+    private final LibraryService libraryService = new LibraryService(new BorrowDAO(), new BookDAO(), userDAO);
 
     public User login() {
         System.out.println("\n=== Login ===");
@@ -35,9 +41,17 @@ public class Auth {
 
         System.out.print("Enter full name: ");
         String name = scanner.nextLine();
+        if (!libraryService.isValidFullName(name)) {
+            System.out.println("Invalid full name. Registration failed.");
+            return;
+        }
 
         System.out.print("Enter email: ");
         String email = scanner.nextLine();
+        if (!libraryService.isValidEmail(email)) {
+            System.out.println("Invalid email format. Registration failed.");
+            return;
+        }
 
         System.out.print("Choose a username: ");
         String username = scanner.nextLine();
@@ -59,14 +73,18 @@ public class Auth {
         }
 
         User newUser;
-        if (role.equals("librarian")) {
-            newUser = new Librarian(name, username, email, password);
-        } else {
-            newUser = new Member(name, username, email, password);
+
+        try {
+            if (role.equals("librarian")) {
+                newUser = new Librarian(name, username, email, password);
+            } else {
+                newUser = new Member(name, username, email, password);
+            }
+                        
+            userDAO.saveUser(newUser);
+            System.out.println("User registered successfully! >_<");
+        }catch (LibraryException e) {
+            System.out.println("Registration failed: " + e.getMessage());
         }
-        userDAO.saveUser(newUser);
-        System.out.println("User registered successfully! >_<");
     }
 }
-
-
