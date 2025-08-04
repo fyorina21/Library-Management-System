@@ -6,12 +6,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Book;
 import utill.DBUtil;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class BookDAO {
     private Connection connect() throws SQLException {
