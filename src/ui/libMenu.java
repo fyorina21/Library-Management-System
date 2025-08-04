@@ -83,7 +83,7 @@ public class libMenu {
         System.out.print("Enter the ID of the book to update: ");
         int id = Integer.parseInt(scanner.nextLine());
 
-        Book existing = bookDAO.findBookById(id);
+        Book existing = bookDAO.getBookById(id);
         if (existing == null) {
             System.out.println("Book not found.");
             return;

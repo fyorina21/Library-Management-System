@@ -21,7 +21,7 @@ public class Member extends User {
         BookDAO bookDAO = new BookDAO();
         BorrowDAO borrowDAO = new BorrowDAO();
 
-        Book book = bookDAO.findBookById(bookId);
+        Book book = bookDAO.getBookById(bookId);
         if (book != null && book.isAvailable()) {
             borrowDAO.borrowBook(this.getId(), bookId);
             book.setIsAvailable(false);
@@ -35,7 +35,7 @@ public class Member extends User {
         BookDAO bookDAO = new BookDAO();
         BorrowDAO borrowDAO = new BorrowDAO();
 
-        Book book = bookDAO.findBookById(bookId);
+        Book book = bookDAO.getBookById(bookId);
         if (book != null) {
             borrowDAO.returnBook(this.getId(), bookId);
             book.setIsAvailable(true);

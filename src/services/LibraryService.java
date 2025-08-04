@@ -29,19 +29,19 @@ public class LibraryService {
         if (email == null) return false;
         return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
     }
-   
+
     private final BorrowDAO borrowDAO;
     private final BookDAO bookDAO;
     private final UserDAO userDAO;
 
 
- public LibraryService(BorrowDAO borrowDAO, BookDAO bookDAO, UserDAO userDAO) {
+    public LibraryService(BorrowDAO borrowDAO, BookDAO bookDAO, UserDAO userDAO) {
         this.borrowDAO = borrowDAO;
         this.bookDAO = bookDAO;
         this.userDAO = userDAO;
     }
 
- public void addNewBook(Book book) throws LibraryException {
+    public void addNewBook(Book book) throws LibraryException {
         try {
             if (book == null) {
                 throw new LibraryException("Book cannot be null");
@@ -75,7 +75,7 @@ public class LibraryService {
         }
     }
 
-     public void registerMember(Member member) throws LibraryException {
+    public void registerMember(Member member) throws LibraryException {
         try {
             if (member == null) {
                 throw new LibraryException("Member cannot be null");
@@ -120,7 +120,7 @@ public class LibraryService {
 
     public void borrowBook(int userId, int bookId) throws LibraryException {
         try {
-           
+
             User user = userDAO.loadAllUsers().stream().filter(u -> u.getId() == userId).findFirst().orElse(null);
             if (user == null) {
                 throw new LibraryException("User not found");
@@ -129,13 +129,11 @@ public class LibraryService {
                 throw new LibraryException("Only members can borrow books");
             }
 
-<<<<<<< HEAD
+
             // 2. Verify book exists and is available
             Book book = bookDAO.getBookById(bookId);
-=======
-           
-            Book book = bookDAO.findBookById(bookId);
->>>>>>> df790e252e2cf59b8f6bf2fecbd07adce0152c3b
+
+
             if (book == null) {
                 throw new LibraryException("Book not found");
             }
@@ -149,10 +147,10 @@ public class LibraryService {
                 throw new LibraryException("Maximum borrowing limit (5 books) reached");
             }
 
-           
+
             borrowDAO.borrowBook(userId, bookId);
-            
-            
+
+
             book.setIsAvailable(false);
             bookDAO.updateBook(book);
 
@@ -165,23 +163,20 @@ public class LibraryService {
 
     public void returnBook(int userId, int bookId) throws LibraryException {
         try {
-           
+
             boolean hasBook = borrowDAO.getBorrowedBooks(userId).stream()
-                                    .anyMatch(b -> b.getId() == bookId);
+                    .anyMatch(b -> b.getId() == bookId);
             if (!hasBook) {
                 throw new LibraryException("This user hasn't borrowed the specified book");
             }
 
-            
+
             borrowDAO.returnBook(userId, bookId);
-            
-<<<<<<< HEAD
+
+
             // 3. Update book availability
             Book book = bookDAO.getBookById(bookId);
-=======
-         
-            Book book = bookDAO.findBookById(bookId);
->>>>>>> df790e252e2cf59b8f6bf2fecbd07adce0152c3b
+
             book.setIsAvailable(true);
             bookDAO.updateBook(book);
 
@@ -203,24 +198,20 @@ public class LibraryService {
             throw new LibraryException("Failed to get borrowed books: " + e.getMessage(), e);
         }
     }
- public List<Member> getAllMembers() throws LibraryException {
+
+    public List<Member> getAllMembers() throws LibraryException {
         try {
             return userDAO.loadAllUsers().stream()
-                         .filter(u -> u instanceof Member)
-                         .map(u -> (Member) u)
-                         .toList();
+                    .filter(u -> u instanceof Member)
+                    .map(u -> (Member) u)
+                    .toList();
         } catch (Exception e) {
             throw new LibraryException("Failed to retrieve members: " + e.getMessage(), e);
         }
     }
 
     public List<Book> getOverdueBooks() throws LibraryException {
-       
+
         throw new UnsupportedOperationException("Overdue tracking not implemented yet");
     }
-<<<<<<< HEAD
-
-    }
-=======
 }
->>>>>>> df790e252e2cf59b8f6bf2fecbd07adce0152c3b
