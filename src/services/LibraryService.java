@@ -13,6 +13,22 @@ import abstracts.User;
 import exception.LibraryException;
 
 public class LibraryService {
+    // Validation for full name: must be at least 2 words, each at least 2 characters
+    public boolean isValidFullName(String name) {
+        if (name == null) return false;
+        String[] parts = name.trim().split("\\s+");
+        if (parts.length < 2) return false;
+        for (String part : parts) {
+            if (part.length() < 2) return false;
+        }
+        return true;
+    }
+
+    // Validation for email: simple regex
+    public boolean isValidEmail(String email) {
+        if (email == null) return false;
+        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+    }
    
     private final BorrowDAO borrowDAO;
     private final BookDAO bookDAO;
@@ -41,7 +57,7 @@ public class LibraryService {
 
     public Book findBookById(int bookId) throws LibraryException {
         try {
-            Book book = bookDAO.findBookById(bookId);
+            Book book = bookDAO.getBookById(bookId);
             if (book == null) {
                 throw new LibraryException("Book not found");
             }
@@ -114,7 +130,7 @@ public class LibraryService {
             }
 
             // 2. Verify book exists and is available
-            Book book = bookDAO.findBookById(bookId);
+            Book book = bookDAO.getBookById(bookId);
             if (book == null) {
                 throw new LibraryException("Book not found");
             }
@@ -155,7 +171,7 @@ public class LibraryService {
             borrowDAO.returnBook(userId, bookId);
             
             // 3. Update book availability
-            Book book = bookDAO.findBookById(bookId);
+            Book book = bookDAO.getBookById(bookId);
             book.setIsAvailable(true);
             bookDAO.updateBook(book);
 
@@ -189,7 +205,8 @@ public class LibraryService {
     }
 
     public List<Book> getOverdueBooks() throws LibraryException {
-        // Implementation would need a due_date column in borrowed_books table
+       
         throw new UnsupportedOperationException("Overdue tracking not implemented yet");
     }
-}
+
+    }
