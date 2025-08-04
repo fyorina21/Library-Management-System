@@ -13,13 +13,20 @@ public class MainMenu{
 
 
     public void ShowMenu(){
-         while(true) {
+        while(true) {
             System.out.println("======== Main Menu ========");
             System.out.println("1. Login");
             System.out.println("2. Register");
             System.out.println("3. Exit");
             System.out.print("Choose an option: ");
-            int option = scanner.nextInt();
+            int option;
+            try {
+                option = scanner.nextInt();
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Invalid option. Please enter a number (1-3).\n");
+                scanner.nextLine(); // consume the invalid input
+                continue;
+            }
 
             switch (option) {
                 case 1 -> {
