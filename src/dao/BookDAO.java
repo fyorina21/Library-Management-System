@@ -1,14 +1,12 @@
 package dao;
 
-import java.io.BufferedInputStream;
-import model.Book;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
+import model.Book;
 import utill.DBUtil;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BookDAO {
     private Connection connect() throws SQLException {
@@ -16,22 +14,6 @@ public class BookDAO {
     }
 
     public void saveBook(Book book) {
-
-        List<Book> books = loadAllBooks();
-        books.add(book);
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE_PATH))){
-        try (ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(FILE_PATH)))) {
-            out.writeObject(books);
-        } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-    @SuppressWarnings("unchecked")
-    public List<Book> loadAllBooks() {
-        }catch (IOException e) {
-            System.out.println ("Error: " + e.getMessage());
-
         String sql = "INSERT INTO books (title, author, category, year_published, is_available, pdf_path) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
