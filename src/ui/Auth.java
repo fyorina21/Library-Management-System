@@ -1,19 +1,23 @@
 package ui;
 
 import java.util.Scanner;
+
+import dao.BookDAO;
+import dao.BorrowDAO;
 import dao.UserDAO;
 import dao.BorrowDAO;
 import dao.BookDAO;
 import abstracts.User;
 import model.Librarian;
 import model.Member;
-import services.LibraryService;
 import exception.LibraryException;
+import services.LibraryService;
 
 public class Auth {
     private final Scanner scanner = new Scanner(System.in);
     private final UserDAO userDAO = new UserDAO();
     private final LibraryService libraryService = new LibraryService(new BorrowDAO(), new BookDAO(), userDAO);
+
     public User login() {
         System.out.println("\n=== Login ===");
         System.out.print("Username: ");
@@ -68,14 +72,19 @@ public class Auth {
             return;
         }
 
-    
-            if (role.equals("librarian")) {
-                Librarian newUser = new Librarian(name, username, email, password);
-                libraryService.registerLibrarian(newUser);
-            } else {
-                Member newUser = new Member(name, username, email, password);
-                libraryService.registerMember(newUser);
-            }
-            System.out.println("User registered successfully! >_<");
- 
+        User newUser;
 
+        try {
+            if (role.equals("librarian")) {
+                newUser = new Librarian(name, username, email, password);
+            } else {
+                newUser = new Member(name, username, email, password);
+            }
+                        
+            userDAO.saveUser(newUser);
+            System.out.println("User registered successfully! >_<");
+        }catch (LibraryException e) {
+            System.out.println("Registration failed: " + e.getMessage());
+        }
+    }
+}

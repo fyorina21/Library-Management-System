@@ -129,13 +129,12 @@ public class LibraryService {
                 throw new LibraryException("Only members can borrow books");
             }
 
-<<<<<<< HEAD
+
             // 2. Verify book exists and is available
-            Book book = bookDAO.getBookById(bookId);
-=======
+
            
             Book book = bookDAO.findBookById(bookId);
->>>>>>> df790e252e2cf59b8f6bf2fecbd07adce0152c3b
+
             if (book == null) {
                 throw new LibraryException("Book not found");
             }
@@ -174,14 +173,9 @@ public class LibraryService {
 
             
             borrowDAO.returnBook(userId, bookId);
-            
-<<<<<<< HEAD
-            // 3. Update book availability
-            Book book = bookDAO.getBookById(bookId);
-=======
          
             Book book = bookDAO.findBookById(bookId);
->>>>>>> df790e252e2cf59b8f6bf2fecbd07adce0152c3b
+
             book.setIsAvailable(true);
             bookDAO.updateBook(book);
 
@@ -203,7 +197,7 @@ public class LibraryService {
             throw new LibraryException("Failed to get borrowed books: " + e.getMessage(), e);
         }
     }
- public List<Member> getAllMembers() throws LibraryException {
+    public List<Member> getAllMembers() throws LibraryException {
         try {
             return userDAO.loadAllUsers().stream()
                          .filter(u -> u instanceof Member)
@@ -218,9 +212,5 @@ public class LibraryService {
        
         throw new UnsupportedOperationException("Overdue tracking not implemented yet");
     }
-<<<<<<< HEAD
-
-    }
-=======
 }
->>>>>>> df790e252e2cf59b8f6bf2fecbd07adce0152c3b
+
