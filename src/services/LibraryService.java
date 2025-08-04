@@ -120,7 +120,7 @@ public class LibraryService {
 
     public void borrowBook(int userId, int bookId) throws LibraryException {
         try {
-            // 1. Verify user exists and can borrow
+           
             User user = userDAO.loadAllUsers().stream().filter(u -> u.getId() == userId).findFirst().orElse(null);
             if (user == null) {
                 throw new LibraryException("User not found");
@@ -129,8 +129,13 @@ public class LibraryService {
                 throw new LibraryException("Only members can borrow books");
             }
 
+<<<<<<< HEAD
             // 2. Verify book exists and is available
             Book book = bookDAO.getBookById(bookId);
+=======
+           
+            Book book = bookDAO.findBookById(bookId);
+>>>>>>> df790e252e2cf59b8f6bf2fecbd07adce0152c3b
             if (book == null) {
                 throw new LibraryException("Book not found");
             }
@@ -138,16 +143,16 @@ public class LibraryService {
                 throw new LibraryException("Book is already borrowed");
             }
 
-            // 3. Check borrowing limits (assuming max 5 books)
+            // 3. Check borrowing limits ( max 5 books)
             List<Book> borrowedBooks = borrowDAO.getBorrowedBooks(userId);
             if (borrowedBooks.size() >= 5) {
                 throw new LibraryException("Maximum borrowing limit (5 books) reached");
             }
 
-            // 4. Execute borrow operation
+           
             borrowDAO.borrowBook(userId, bookId);
             
-            // 5. Update book availability
+            
             book.setIsAvailable(false);
             bookDAO.updateBook(book);
 
@@ -160,18 +165,23 @@ public class LibraryService {
 
     public void returnBook(int userId, int bookId) throws LibraryException {
         try {
-            // 1. Verify the book is actually borrowed by this user
+           
             boolean hasBook = borrowDAO.getBorrowedBooks(userId).stream()
                                     .anyMatch(b -> b.getId() == bookId);
             if (!hasBook) {
                 throw new LibraryException("This user hasn't borrowed the specified book");
             }
 
-            // 2. Execute return operation
+            
             borrowDAO.returnBook(userId, bookId);
             
+<<<<<<< HEAD
             // 3. Update book availability
             Book book = bookDAO.getBookById(bookId);
+=======
+         
+            Book book = bookDAO.findBookById(bookId);
+>>>>>>> df790e252e2cf59b8f6bf2fecbd07adce0152c3b
             book.setIsAvailable(true);
             bookDAO.updateBook(book);
 
@@ -208,5 +218,9 @@ public class LibraryService {
        
         throw new UnsupportedOperationException("Overdue tracking not implemented yet");
     }
+<<<<<<< HEAD
 
     }
+=======
+}
+>>>>>>> df790e252e2cf59b8f6bf2fecbd07adce0152c3b
