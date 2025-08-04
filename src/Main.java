@@ -13,7 +13,7 @@ import ui.memberMenu;
 
 public class Main {
     public static void main(String[] args) {
-        // ✅ Create a librarian
+        
         // Librarian librarian = new Librarian("L001", "librarian1", "Librarian1@gmail.com", "Librarian", "L001");
 
         // ✅ Create a member
@@ -46,14 +46,14 @@ public class Main {
 //         // ✅ View all books
         // librarian.viewAllBooks();
 
-//         // ✅ Display member list
+//
 //         System.out.println("\nRegistered Members:");
 //         ArrayList<Member> allMembers = librarian.getMembers();
 //         for (Member m : allMembers) {
 //             m.displayInfo();  // Make sure Member overrides displayInfo()
 //         }
 
-//         // ✅ Display librarian info
+//
 //         System.out.println("\nLibrarian Info:");
 //         librarian.displayInfo();
     }

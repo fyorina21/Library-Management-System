@@ -39,8 +39,8 @@ public class Book  {
    public boolean isAvailable(){
         return isAvailable;
    }
-    public void setIsAvailable(boolean IsAvailable){
-
+    public void setIsAvailable(boolean isAvailable){
+        this.isAvailable = true;
     }
     public String getGenre(){
         return genre;

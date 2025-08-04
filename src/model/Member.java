@@ -7,12 +7,14 @@ import java.util.ArrayList;
 
 // all fields should be private with getters and setters
 // should extend user and implement both interfaces
+
+
 public class Member extends User {
     private int maxBooks;
     ArrayList<Book> borrowedBooks = new ArrayList<>();
 
-    public Member(String name, String username, String email, String password) {
-        super(name, username, email, "member", password);
+    public Member(String name, String username, String email,  String password) {
+        super(name, username, email, "member", password );
     }
     public ArrayList<Member> members = new ArrayList<>();
 
@@ -23,7 +25,7 @@ public class Member extends User {
         this.members = members;
     }
 
-    public ArrayList<Book> getBorrowedBooks(){
+    public ArrayList<Book>getBorrowedBooks(){
         return borrowedBooks;
     }
     public void setBorrowedBooks(ArrayList<Book> borrowedBooks){
@@ -64,7 +66,7 @@ public class Member extends User {
             if (b.getTitle().equalsIgnoreCase(title) && b.isAvailable()) {
                 borrowedBooks.add(b);
                 b.setIsAvailable(false);
-                return true;
+                 return true;
             }
         }
         return false;
