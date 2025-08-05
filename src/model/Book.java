@@ -1,15 +1,15 @@
 package model;
 // all fields should be private with getters and setters
-public class Book  {
-    private int id;
-    private String title;
-    private String author;
-    private String category;
-    private int yearPublished;
-    private boolean isAvailable;
-    private String pdfPath;
+ public class Book  {
+     private int id;
+     private String title;
+     private String author;
+     private String category;
+     private int yearPublished;
+     private boolean isAvailable;
+     private String pdfPath;
 
-    public Book(String title, String author, String category, int yearPublished,boolean isAvailable, String pdfPath){
+     public Book(String title, String author, String category, int yearPublished,boolean isAvailable, String pdfPath){
         this.title = title;
         this.author = author;
         this.category = category;
@@ -18,12 +18,12 @@ public class Book  {
         this.pdfPath = pdfPath;
     }
 
-    public Book() {}
+     public Book() {}
 
-    public int getId(){
+     public int getId(){
         return id;
     }
-    public void setId(int id){
+     public void setId(int id){
         this.id = id;
 
     }
@@ -43,32 +43,36 @@ public class Book  {
         return isAvailable;
    }
     public void setIsAvailable(boolean isAvailable){
-        this.isAvailable = true;
+        this.isAvailable = isAvailable;
     }
     public String getCategory(){
         return category;
     }
-    public void setCategory(String category){
-        this.category = category;
+     public void setCategory(String category){
+         this.category = category;
     }
     public int getYearPublished(){
-        return yearPublished;
+         return yearPublished;
     }
     public void setYearPublished(int yearPublished){
-        this.yearPublished = yearPublished;
+         if(yearPublished >0) {
+             this.yearPublished = yearPublished;
+         }else{
+             throw new IllegalArgumentException("YEAR MUST BE POSITIVE.");
+         }
     }
 
-    public String getPdfPath() {
+     public String getPdfPath() {
     return pdfPath;
     }
 
-    public void setPdfPath(String pdfPath) {
+     public void setPdfPath(String pdfPath) {
         this.pdfPath = pdfPath;
     }
 
 
-    @Override
-    public String toString() {
-        return "[" + id + "] " + title + " by " + author + " (" + yearPublished + ") - " + (isAvailable ? "Available" : "Borrowed") + "\nPath: " + pdfPath ;
-    }
+     @Override
+     public String toString() {
+         return "[" + id + "] " + title + " by " + author + " (" + yearPublished + ") - " + (isAvailable ? "Available" : "Borrowed") + "\nPath: " + pdfPath ;
+     }
 }

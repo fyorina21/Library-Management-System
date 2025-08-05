@@ -1,7 +1,7 @@
 package dao;
 
 import model.Book;
-import utill.DBUtil;
+import util.DBUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -70,5 +70,23 @@ public class BorrowDAO {
         }
 
         return borrowedBooks;
+    }
+
+
+    public boolean hasBorrowedBook(int memberId, int bookId) {
+        String sql = "SELECT * FROM borrowed_books WHERE member_id = ? AND book_id = ? AND return_date IS NULL";
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, memberId);
+            pstmt.setInt(2, bookId);
+            ResultSet rs = pstmt.executeQuery();
+
+            return rs.next(); // returns true if a record exists
+        } catch (SQLException e) {
+            System.out.println("Error checking borrowed book: " + e.getMessage());
+            return false;
+        }
+
     }
 }
