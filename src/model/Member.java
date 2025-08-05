@@ -4,13 +4,9 @@ import abstracts.User;
 import dao.BookDAO;
 import dao.BorrowDAO;
 
-<<<<<<< HEAD
 
-
-=======
-import java.sql.SQLException;
 import java.util.List;
->>>>>>> eb3c0aec237dc4f57c8a04cfbd5ea6b5f9ac5408
+
 
 public class Member extends User {
     // private int maxBooks;
@@ -68,7 +64,6 @@ public class Member extends User {
         System.out.println("Number of borrowed books: " + count);
     }
 
-    // Fixed method: Now directly returns the list from BorrowDAO
     public List<Book> getBorrowedBooks() {
         BorrowDAO borrowDAO = new BorrowDAO();
         return borrowDAO.getBorrowedBooks(this.getId());
