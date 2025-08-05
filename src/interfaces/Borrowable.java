@@ -1,5 +1,7 @@
 package interfaces;
 
-public class Borrowable {
-    
+public interface Borrowable {
+    void borrow();
+    void returnItem();
+    boolean isBorrowed();
 }
