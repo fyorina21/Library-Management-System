@@ -82,7 +82,21 @@ public class libMenu {
     private void updateBook() {
         viewBooks();
         System.out.print("Enter the ID of the book to update: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id;
+
+         try {
+            id = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid ID.");
+            return;
+        }
+
+        if (id == 0) {
+            System.out.println("Returning to menu...");
+            return;
+        }
+
+
 
         Book existing = bookDAO.findBookById(id);
         if (existing == null) {
@@ -106,6 +120,14 @@ public class libMenu {
         int year = Integer.parseInt(scanner.nextLine());
         if (year > 0) existing.setYearPublished(year);
 
+        try {
+            year = Integer.parseInt(scanner.nextLine());
+            if (year > 0) existing.setYearPublished(year);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid year. Keeping original.");
+        }
+
+
         System.out.print("New URL (leave blank to keep: " + existing.getPdfPath() + "): ");
         String path = scanner.nextLine();
         existing.setPdfPath(path);
@@ -117,7 +139,25 @@ public class libMenu {
     private void removeBook() {
         viewBooks();
         System.out.print("Enter the ID of the book to remove: ");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id; 
+
+        try {
+            id = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid ID.");
+            return;
+        }
+        if (id == 0) {
+            System.out.println("Returning to menu...");
+            return;
+        }
+
+        Book existing = bookDAO.findBookById(id);
+        if (existing == null) {
+            System.out.println("Book not found.");
+            return;
+        }
+
 
         bookDAO.deleteBook(id);
         System.out.println("Book removed.");
