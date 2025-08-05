@@ -107,7 +107,7 @@ public class libMenu {
 
 
 
-        Book existing = bookDAO.findBookById(id);
+        Book existing = bookDAO.getBookById(id);
         if (existing == null) {
             System.out.println("Book not found.");
             return;

@@ -2,7 +2,7 @@ package dao;
 
 
 import model.Book;
-import utill.DBUtil;
+import util.DBUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +16,8 @@ public class BookDAO {
     public void saveBook(Book book) {
         String sql = "INSERT INTO books (title, author, category, year_published, is_available, pdf_path) VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, book.getTitle());
             pstmt.setString(2, book.getAuthor());
             pstmt.setString(3, book.getCategory());
@@ -33,7 +34,8 @@ public class BookDAO {
         List<Book> books = new ArrayList<>();
         String sql = "SELECT * FROM books";
 
-        try (Connection conn = connect(); Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 books.add(buildBookFromResultSet(rs));
             }
@@ -47,7 +49,8 @@ public class BookDAO {
     public Book getBookById(int id) {
         String sql = "SELECT * FROM books WHERE id = ?";
 
-        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
 
             ResultSet rs = pstmt.executeQuery();
@@ -64,7 +67,8 @@ public class BookDAO {
     public void updateBook(Book book) {
         String sql = "UPDATE books SET title = ?, author = ?, category = ?, year_published = ?, is_available = ?, pdf_path = ? WHERE id = ?";
 
-        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, book.getTitle());
             pstmt.setString(2, book.getAuthor());
             pstmt.setString(3, book.getCategory());
@@ -81,7 +85,8 @@ public class BookDAO {
     public void deleteBook(int id) {
         String sql = "DELETE FROM books WHERE id = ?";
 
-        try (Connection conn = connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -101,7 +106,8 @@ public class BookDAO {
         book.setId(rs.getInt("id"));
         return book;
     }
-    
+
+
     public Book findBookById(int id) {
         String sql = "SELECT * FROM books WHERE id = ?";
 
@@ -128,4 +134,5 @@ public class BookDAO {
 
         return null;
     }
+
 }

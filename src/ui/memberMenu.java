@@ -84,7 +84,7 @@ public class memberMenu {
             return;
         }
 
-            Book book = bookDAO.findBookById(bookId);
+            Book book = bookDAO.getBookById(bookId);
             boolean borrow = member.borrowBook(bookId);
             if (!borrow && !book.isAvailable()) {
                 System.out.println("Book not available or invalid ID.");
@@ -116,7 +116,7 @@ public class memberMenu {
 
         System.out.print("Enter the ID of the book to return: ");
         int bookId = Integer.parseInt(scanner.nextLine());
-        Book book = bookDAO.findBookById(bookId);
+        Book book = bookDAO.getBookById(bookId);
 
         if (book == null) {
             System.out.println("Invalid book ID.");
@@ -131,4 +131,5 @@ public class memberMenu {
         System.out.println("You have returned \"" + book.getTitle() + "\".");
 
     }
+
 }

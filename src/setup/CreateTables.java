@@ -2,7 +2,7 @@ package setup;
 
 import java.sql.Connection;
 import java.sql.Statement;
-import utill.DBUtil;
+import util.DBUtil;
 
 public class CreateTables {
     public static void main(String[] args){

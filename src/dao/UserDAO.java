@@ -3,7 +3,7 @@ package dao;
 import abstracts.User;
 import model.Librarian;
 import model.Member;
-import utill.DBUtil;
+import util.DBUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
