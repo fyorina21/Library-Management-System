@@ -1,18 +1,19 @@
 package ui;
 
-import java.util.Scanner;
-import model.Librarian;
-import model.Book;
 import dao.BookDAO;
 import dao.UserDAO;
-
 import java.util.List;
+import java.util.Scanner;
+import model.Book;
+import model.Librarian;
+import model.Member;
+import services.ReportService;
 
 public class libMenu {
     private final Scanner scanner = new Scanner(System.in);
     private final BookDAO bookDAO = new BookDAO();
     private final UserDAO userDAO = new UserDAO();
-    
+
     public void ShowMenu(Librarian librarian) {
         while(true) {
             System.out.println("\n=== Librarian Menu ===");
@@ -21,9 +22,9 @@ public class libMenu {
             System.out.println("3. Update Book");
             System.out.println("4. Remove Book");
             System.out.println("5. View All Members");
-            System.out.println("6. Logout");
-            
-            
+            System.out.println("6. Generate Member Activity Report");
+            System.out.println("7. Logout");
+
             System.out.print("What would you like to do? ");
             int choice = scanner.nextInt();
 
@@ -33,14 +34,15 @@ public class libMenu {
                 case 3 -> updateBook();
                 case 4 -> removeBook();
                 case 5 -> userDAO.viewAllMembers();
-                case 6 -> {
+                case 6 -> generateMemberActivityReport();
+                case 7 -> {
                     System.out.println("Logging out...");
                     return;
                 }
                 default -> System.out.println("Invalid choice.");
             }
-        }                       
-    } 
+        }
+    }
 
     private void addBook() {
         System.out.println("\n=== Add Book ===");
@@ -93,7 +95,7 @@ public class libMenu {
         System.out.print("Enter the ID of the book to update: ");
         int id;
 
-         try {
+        try {
             id = Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
             System.out.println("Invalid ID.");
@@ -104,8 +106,6 @@ public class libMenu {
             System.out.println("Returning to menu...");
             return;
         }
-
-
 
         Book existing = bookDAO.getBookById(id);
         if (existing == null) {
@@ -126,9 +126,7 @@ public class libMenu {
         if (!category.isEmpty()) existing.setCategory(category);
 
         System.out.print("New Year Published (enter 0 to keep: " + existing.getYearPublished() + "): ");
-        int year = Integer.parseInt(scanner.nextLine());
-        if (year > 0) existing.setYearPublished(year);
-
+        int year = 0;
         try {
             year = Integer.parseInt(scanner.nextLine());
             if (year > 0) existing.setYearPublished(year);
@@ -136,10 +134,9 @@ public class libMenu {
             System.out.println("Invalid year. Keeping original.");
         }
 
-
         System.out.print("New URL (leave blank to keep: " + existing.getPdfPath() + "): ");
         String path = scanner.nextLine();
-        existing.setPdfPath(path);
+        if (!path.isEmpty()) existing.setPdfPath(path);
 
         bookDAO.updateBook(existing);
         System.out.println("Book updated.");
@@ -148,7 +145,7 @@ public class libMenu {
     private void removeBook() {
         viewBooks();
         System.out.print("Enter the ID of the book to remove: ");
-        int id; 
+        int id;
 
         try {
             id = Integer.parseInt(scanner.nextLine());
@@ -167,8 +164,15 @@ public class libMenu {
             return;
         }
 
-
         bookDAO.deleteBook(id);
         System.out.println("Book removed.");
-    } 
+    }
+
+    private void generateMemberActivityReport() {
+        UserDAO userDAO = new UserDAO();
+        List<Member> allMembers = userDAO.getAllMembers();
+
+        ReportService reportService = new ReportService();
+        reportService.generateMemberActivityReport(allMembers);
+    }
 }
