@@ -1,5 +1,6 @@
 package interfaces;
 
-public class Returnable {
-    
+public interface Returnable {
+    void returnItem();
 }
+
