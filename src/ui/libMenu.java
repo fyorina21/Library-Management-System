@@ -44,6 +44,7 @@ public class libMenu {
 
     private void addBook() {
         System.out.println("\n=== Add Book ===");
+        scanner.nextLine();
 
         System.out.print("Title: ");
         String title = scanner.nextLine();
@@ -54,8 +55,16 @@ public class libMenu {
         System.out.print("Category: ");
         String category = scanner.nextLine();
 
-        System.out.print("Year Published: ");
-        int year = Integer.parseInt(scanner.nextLine());
+        int year;
+        while (true) {
+            try {
+                System.out.print("Year Published: ");
+                year = Integer.parseInt(scanner.nextLine());
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid year. Please enter a valid number.");
+            }
+        }
 
         System.out.print("PDF Path or URL (leave empty if not applicable): ");
         String pdfPath = scanner.nextLine();
