@@ -90,6 +90,8 @@ public class libMenu {
 
     private void updateBook() {
         viewBooks();
+        scanner.nextLine();
+        
         System.out.print("Enter the ID of the book to update: ");
         int id;
 
@@ -147,6 +149,8 @@ public class libMenu {
 
     private void removeBook() {
         viewBooks();
+        scanner.nextLine();
+        
         System.out.print("Enter the ID of the book to remove: ");
         int id; 
 

@@ -41,7 +41,7 @@ public class BorrowDAO {
     public List<Book> getBorrowedBooks(int userId) {
         List<Book> borrowedBooks = new ArrayList<>();
         String sql = """
-            SELECT b.id, b.title, b.category, b.year_published, b.is_available, b.pdf_path
+            SELECT b.id, b.title,b.author, b.category, b.year_published, b.is_available, b.pdf_path
             FROM books b
             JOIN borrowed_books bb ON b.id = bb.book_id
             WHERE bb.user_id = ?
@@ -72,7 +72,6 @@ public class BorrowDAO {
         return borrowedBooks;
     }
 
-
     public boolean hasBorrowedBook(int memberId, int bookId) {
         String sql = "SELECT * FROM borrowed_books WHERE member_id = ? AND book_id = ? AND return_date IS NULL";
         try (Connection conn = DBUtil.getConnection();
@@ -87,6 +86,6 @@ public class BorrowDAO {
             System.out.println("Error checking borrowed book: " + e.getMessage());
             return false;
         }
-
     }
+
 }
