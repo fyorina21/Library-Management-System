@@ -1,13 +1,12 @@
 package dao;
 
 import abstracts.User;
-import model.Librarian;
-import model.Member;
-import util.DBUtil;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import model.Librarian;
+import model.Member;
+import util.DBUtil;
 
 public class UserDAO {
 
@@ -134,5 +133,32 @@ public class UserDAO {
             System.out.println("Error retrieving members: " + e.getMessage());
         }
     }
-}
+    
+    // New method to get list of all Member objects
+    public List<Member> getAllMembers() {
+        List<Member> members = new ArrayList<>();
 
+        String sql = "SELECT * FROM users WHERE role = 'member'";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Member member = new Member(
+                        rs.getString("name"),
+                        rs.getString("username"),
+                        rs.getString("email"),
+                        rs.getString("password")
+                );
+                member.setId(rs.getInt("id"));
+                members.add(member);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error loading members: " + e.getMessage());
+        }
+
+        return members;
+    }
+}
