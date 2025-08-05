@@ -44,6 +44,7 @@ public class libMenu {
 
     private void addBook() {
         System.out.println("\n=== Add Book ===");
+
         System.out.print("Title: ");
         String title = scanner.nextLine();
 

@@ -5,12 +5,9 @@ import java.util.Scanner;
 import dao.BookDAO;
 import dao.BorrowDAO;
 import dao.UserDAO;
-import dao.BorrowDAO;
-import dao.BookDAO;
 import abstracts.User;
 import model.Librarian;
 import model.Member;
-import exception.LibraryException;
 import services.LibraryService;
 
 public class Auth {
@@ -73,18 +70,14 @@ public class Auth {
         }
 
         User newUser;
-
-        try {
-            if (role.equals("librarian")) {
-                newUser = new Librarian(name, username, email, password);
-            } else {
-                newUser = new Member(name, username, email, password);
-            }
-                        
-            userDAO.saveUser(newUser);
-            System.out.println("User registered successfully! >_<");
-        }catch (LibraryException e) {
-            System.out.println("Registration failed: " + e.getMessage());
+        if (role.equals("librarian")) {
+            newUser = new Librarian(name, username, email, password);
+        } else {
+            newUser = new Member(name, username, email, password);
         }
+                    
+        userDAO.saveUser(newUser);
+        System.out.println("User registered successfully! >_<");
+    
     }
 }
