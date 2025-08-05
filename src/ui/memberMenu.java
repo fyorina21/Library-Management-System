@@ -56,7 +56,14 @@ public class memberMenu {
                 book.getId(), book.getTitle(), book.getAuthor(),
                 book.getYearPublished(), book.getCategory());
             }
+       
         }
+         System.out.print("\nEnter 0 to go back: ");
+        String input = scanner.nextLine();
+        if (input.equals("0")) {
+            System.out.println("Returning to menu...");
+        }
+
     }
 
     private void borrowBook(Member member) {
@@ -64,7 +71,18 @@ public class memberMenu {
         List<Book> availableBooks = bookDAO.getAllBooks();
         while (!availableBooks.isEmpty()) {
             System.out.print("Enter the ID of the book to borrow: ");
-            int bookId = Integer.parseInt(scanner.nextLine());
+            int bookId; 
+             try {
+            bookId = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input.");
+            return;
+        }
+
+        if (bookId == 0) {
+            System.out.println("Returning to menu...");
+            return;
+        }
 
             Book book = bookDAO.getBookById(bookId);
             boolean borrow = member.borrowBook(bookId);

@@ -5,12 +5,9 @@ import java.util.Scanner;
 import dao.BookDAO;
 import dao.BorrowDAO;
 import dao.UserDAO;
-import dao.BorrowDAO;
-import dao.BookDAO;
 import abstracts.User;
 import model.Librarian;
 import model.Member;
-import exception.LibraryException;
 import services.LibraryService;
 
 public class Auth {
@@ -30,12 +27,12 @@ public class Auth {
 
         User user = userDAO.findUserByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-            System.out.println("Login successful! Welcome " + user.getUsername() + "(" + user.getRole() + ")");
+            System.out.println("Login successful! Welcome " + user.getUsername()+ "(" + user.getRole() + ")");
             return user;
         } else {
             System.out.println("Invalid username or password.");
             return null;
-        }
+        }      
     }
 
     public void register() {
@@ -78,8 +75,9 @@ public class Auth {
         } else {
             newUser = new Member(name, username, email, password);
         }
-
+                    
         userDAO.saveUser(newUser);
         System.out.println("User registered successfully! >_<");
+    
     }
 }
